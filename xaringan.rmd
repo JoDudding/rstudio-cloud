@@ -8,7 +8,8 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
-    css: [default, rladies, rladies-fonts]
+    #css: [default, rladies, rladies-fonts]
+    css: xaringan-themer.css
 params:
   name1: "Joanne" 
   name2: "Maree"
@@ -21,26 +22,6 @@ background-position: 99.5% 0.5%
 background-size: 5%
 
 ---
-
-class: inverse, center, middle
-
-# Jo Dudding
-
-```{r myhex, echo = FALSE, out.width = '25%'}
-knitr::include_graphics("https://github.com/jodudding.png") # update USERNAME here
-```
-
-### Learning to create Xanargan slides
-
-.large[Jo Dudding | 10 April 2018]
-
-.small[Course notes: https://arm.rbind.io/slides/xaringan.html]
-
----
-
-class: center, middle
-
-<!-- edit name1 and name2 in the YAML above -->
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -56,6 +37,42 @@ library(babynames) # load babynames package
 library(gt)
 library(leaflet)
 ```
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+style_mono_light(
+  base_color = "#5F187F", white_color = colorspace::lighten("#FCFDBF", 0.75),
+  background_color = colorspace::lighten("#FCFDBF", 0.75),
+  code_highlight_color = colorspace::lighten("#982D80", 0.75),
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono")
+)
+
+
+theme_colors <- viridisLite::magma(8)[2:8]
+```
+
+class: inverse, center, middle
+
+# Jo Dudding
+
+```{r myhex, echo = FALSE, out.width = '25%'}
+knitr::include_graphics("https://github.com/jodudding.png") # update USERNAME here
+```
+
+### Learning to create Xanargan slides
+
+.large[Jo Dudding | 10 April 2018]
+
+.small[[Course notes](https://arm.rbind.io/slides/xaringan.html)]
+
+---
+
+class: center, middle
+
+<!-- edit name1 and name2 in the YAML above -->
+
 
 ```{r eval = FALSE, echo = FALSE}
 # optional package installs if you want to do more below
@@ -171,13 +188,19 @@ topyears %>%
 
 .right-column[
 
-```{r, highlight.output = c(1, 2), fig.retina = 3}
+```{r, highlight.output = c(1, 2), fig.retina = 3, echo = FALSE}
 ggplot(namedata, 
   aes(x = year, 
       y = prop,  
       group = name, 
       color = name)) + 
-  geom_line() 
+  geom_line() +
+  theme_xaringan() +
+  scale_colour_manual(values = theme_colors) +
+  labs(
+    x = 'Year', y = 'Proportion', colour = 'Names', 
+    title = 'Popularity of names over time'
+  )
 ```
 
 ]
