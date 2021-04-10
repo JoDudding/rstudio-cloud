@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Hello my name is Jo</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jo Dudding" />
+    <meta name="date" content="2021-04-10" />
+    <script src="xaringan_files/header-attrs/header-attrs.js"></script>
+    <link href="xaringan_files/remark-css/default.css" rel="stylesheet" />
+    <link href="xaringan_files/remark-css/rladies.css" rel="stylesheet" />
+    <link href="xaringan_files/remark-css/rladies-fonts.css" rel="stylesheet" />
+    <script src="xaringan_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="xaringan_files/jquery/jquery.min.js"></script>
+    <link href="xaringan_files/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="xaringan_files/leaflet/leaflet.js"></script>
+    <link href="xaringan_files/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="xaringan_files/proj4/proj4.min.js"></script>
+    <script src="xaringan_files/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="xaringan_files/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="xaringan_files/leaflet-binding/leaflet.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+layout: true
+
+background-image: url(img/jo_hex.png)
+background-position: 99.5% 0.5%
+background-size: 5%
+
+---
+
+class: inverse, center, middle
+
+# Jo Dudding
+
+&lt;img src="https://github.com/jodudding.png" width="25%" /&gt;
+
+### Learning to create Xanargan slides
+
+.large[Jo Dudding | 10 April 2018]
+
+.small[Course notes: https://arm.rbind.io/slides/xaringan.html]
+
+---
+
+class: center, middle
+
+&lt;!-- edit name1 and name2 in the YAML above --&gt;
+
+
+
+
+
+
+&lt;!-- introduce yourself here --&gt;
+
+## Hello my name is Jo Dudding!
+
+I'm a data scientist at BNZ who is transitioning from SAS to R.
+
+&lt;!-- include an image here, if you have a GitHub account use your profile pic! --&gt;
+
+&lt;img src="https://github.com/jodudding.png" width="25%" /&gt;
+
+--
+
+.right[Nice to meet you]
+
+???
+
+I hope you're having a great day today.
+
+---
+
+class: center, middle
+
+## Side by side
+
+.pull-left[
+![my hex](https://github.com/jodudding.png)
+]
+
+.pull-right[
+![my hex](https://github.com/jodudding.png)
+]
+---
+
+
+class: center, middle
+
+## Side by side with narrower left
+
+.left-column[
+![my hex](https://github.com/jodudding.png)
+]
+
+.right-column[
+![my hex](https://github.com/jodudding.png)
+]
+---
+&lt;!-- we make the data here --&gt;
+
+.left-column[
+# Get the data
+]
+
+.right-column[
+
+
+```r
+# getting the data
+namedata &lt;- babynames %&gt;%
+  filter(name == params$name1 | 
+           name == params$name2) %&gt;% 
+  filter(sex == "F") 
+
+*glimpse(namedata)
+```
+
+```
+## Rows: 225
+## Columns: 5
+## $ year &lt;dbl&gt; 1888, 1893, 1894, 1895, 1897, 1898, 1899, 1900, 1902, 1903, 1904,…
+## $ sex  &lt;chr&gt; "F", "F", "F", "F", "F", "F", "F", "F", "F", "F", "F", "F", "F", …
+## $ name &lt;chr&gt; "Joanne", "Joanne", "Maree", "Joanne", "Maree", "Maree", "Maree",…
+## $ n    &lt;int&gt; 5, 6, 5, 5, 8, 8, 6, 6, 8, 9, 8, 8, 14, 9, 19, 19, 8, 16, 28, 8, …
+## $ prop &lt;dbl&gt; 2.639e-05, 2.664e-05, 2.119e-05, 2.023e-05, 3.222e-05, 2.918e-05,…
+```
+]
+---
+
+&lt;!-- get and see top years for each name --&gt;
+
+.left-column[
+# Tables
+]
+
+.right-column[
+
+
+```r
+topyears &lt;- namedata %&gt;% 
+  group_by(name) %&gt;% 
+  top_n(1, prop) 
+```
+
+
+
+```r
+topyears %&gt;% 
+  filter(name == params$name1) %&gt;%
+* gt()
+```
+
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#vnjwenfvqf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vnjwenfvqf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vnjwenfvqf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vnjwenfvqf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vnjwenfvqf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vnjwenfvqf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vnjwenfvqf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vnjwenfvqf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vnjwenfvqf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vnjwenfvqf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vnjwenfvqf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vnjwenfvqf .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vnjwenfvqf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vnjwenfvqf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vnjwenfvqf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vnjwenfvqf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vnjwenfvqf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#vnjwenfvqf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vnjwenfvqf .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#vnjwenfvqf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vnjwenfvqf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vnjwenfvqf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vnjwenfvqf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vnjwenfvqf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vnjwenfvqf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#vnjwenfvqf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vnjwenfvqf .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#vnjwenfvqf .gt_left {
+  text-align: left;
+}
+
+#vnjwenfvqf .gt_center {
+  text-align: center;
+}
+
+#vnjwenfvqf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vnjwenfvqf .gt_font_normal {
+  font-weight: normal;
+}
+
+#vnjwenfvqf .gt_font_bold {
+  font-weight: bold;
+}
+
+#vnjwenfvqf .gt_font_italic {
+  font-style: italic;
+}
+
+#vnjwenfvqf .gt_super {
+  font-size: 65%;
+}
+
+#vnjwenfvqf .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="vnjwenfvqf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">sex</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">n</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">prop</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <td colspan="4" class="gt_group_heading">Joanne</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">1935</td>
+      <td class="gt_row gt_left">F</td>
+      <td class="gt_row gt_center">4563</td>
+      <td class="gt_row gt_right">0.00419893</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+
+
+
+```r
+topyears %&gt;% 
+  filter(name == params$name2) %&gt;%
+* knitr::kable(format = "html")
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; name &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; prop &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1897 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Maree &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.22e-05 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+---
+
+&lt;!-- plot name popularity over time --&gt;
+
+.left-column[
+# Chart
+]
+
+.right-column[
+
+
+```r
+ggplot(namedata, 
+  aes(x = year, 
+      y = prop,  
+      group = name, 
+      color = name)) + 
+  geom_line() 
+```
+
+&lt;img src="xaringan_files/figure-html/unnamed-chunk-2-1.png" width="504" /&gt;
+
+]
+
+---
+
+&lt;!-- where are you from? --&gt;
+
+.left-column[
+# Map
+]
+
+.right-column[
+
+
+```r
+# erase this chunk option if you want to include a map
+library(leaflet)
+leaflet() %&gt;% addTiles() %&gt;% setView(lat = -36.845983893565595, lng = 174.76659381353878, zoom = 17)
+```
+
+<div id="htmlwidget-70155b7f9b5b62d6acdc" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-70155b7f9b5b62d6acdc">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[-36.8459838935656,174.766593813539],17,[]]},"evals":[],"jsHooks":[]}</script>
+
+]
+
+---
+
+&lt;!-- plot name popularity over time --&gt;
+
+# Chart and code
+
+.pull-left[
+
+
+```r
+ggplot(namedata, 
+  aes(x = year, 
+      y = prop,  
+      group = name, 
+      color = name)) + 
+  geom_line() 
+```
+
+]
+
+.pull-right[
+
+&lt;img src="xaringan_files/figure-html/unnamed-chunk-4-1.png" width="504" /&gt;
+]
+
+---
+
+&lt;!-- plot name popularity over time --&gt;
+
+# Chart and code reverse order
+
+.pull-left[
+
+&lt;img src="xaringan_files/figure-html/plot-first-1.png" width="504" /&gt;
+
+]
+
+.pull-right[
+
+
+```r
+ggplot(namedata, 
+  aes(x = year, 
+      y = prop,  
+      group = name, 
+      color = name)) + 
+  geom_line() 
+```
+]
+
+---
+
+background-image: url(http://bit.ly/arm-greens)
+class: center, middle, inverse
+
+## No background size
+
+Image size 6016x4016
+
+---
+
+background-image: url(http://bit.ly/arm-greens)
+background-size: cover
+class: center, middle, inverse
+
+## Cover
+
+Image size 6016x4016
+
+---
+
+background-image: url(http://bit.ly/arm-greens)
+background-size: contain
+class: center, middle, inverse
+
+## Contain
+
+Image size 6016x4016
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

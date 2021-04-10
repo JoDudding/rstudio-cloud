@@ -1,0 +1,284 @@
+---
+title: "Hello my name is Jo"
+author: "Jo Dudding"
+date: "`r Sys.Date()`"
+output: 
+  xaringan::moon_reader:
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+    css: [default, rladies, rladies-fonts]
+params:
+  name1: "Joanne" 
+  name2: "Maree"
+---
+
+layout: true
+
+background-image: url(img/jo_hex.png)
+background-position: 99.5% 0.5%
+background-size: 5%
+
+---
+
+class: inverse, center, middle
+
+# Jo Dudding
+
+```{r myhex, echo = FALSE, out.width = '25%'}
+knitr::include_graphics("https://github.com/jodudding.png") # update USERNAME here
+```
+
+### Learning to create Xanargan slides
+
+.large[Jo Dudding | 10 April 2018]
+
+.small[Course notes: https://arm.rbind.io/slides/xaringan.html]
+
+---
+
+class: center, middle
+
+<!-- edit name1 and name2 in the YAML above -->
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+knitr::opts_chunk$set(
+  warning = FALSE, 
+  message = FALSE,
+  fig.retina = 3
+)
+
+library(tidyverse) # load tidyverse package
+library(babynames) # load babynames package
+library(gt)
+library(leaflet)
+```
+
+```{r eval = FALSE, echo = FALSE}
+# optional package installs if you want to do more below
+install.packages("leaflet")
+```
+
+
+<!-- introduce yourself here -->
+
+## Hello my name is `r rmarkdown::metadata$author`!
+
+I'm a data scientist at BNZ who is transitioning from SAS to R.
+
+<!-- include an image here, if you have a GitHub account use your profile pic! -->
+
+```{r photo, echo = FALSE, out.width = '25%'}
+knitr::include_graphics("https://github.com/jodudding.png") # update USERNAME here
+```
+
+--
+
+.right[Nice to meet you]
+
+???
+
+I hope you're having a great day today.
+
+---
+
+class: center, middle
+
+## Side by side
+
+.pull-left[
+![my hex](https://github.com/jodudding.png)
+]
+
+.pull-right[
+![my hex](https://github.com/jodudding.png)
+]
+---
+
+
+class: center, middle
+
+## Side by side with narrower left
+
+.left-column[
+![my hex](https://github.com/jodudding.png)
+]
+
+.right-column[
+![my hex](https://github.com/jodudding.png)
+]
+---
+<!-- we make the data here -->
+
+.left-column[
+# Get the data
+]
+
+.right-column[
+
+```{r filterdata}
+# getting the data
+namedata <- babynames %>%
+  filter(name == params$name1 | 
+           name == params$name2) %>% 
+  filter(sex == "F") 
+
+glimpse(namedata) #<<
+```
+]
+---
+
+<!-- get and see top years for each name -->
+
+.left-column[
+# Tables
+]
+
+.right-column[
+
+```{r gettopyears}
+topyears <- namedata %>% 
+  group_by(name) %>% 
+  top_n(1, prop) 
+```
+
+
+```{r topyear-name1}
+topyears %>% 
+  filter(name == params$name1) %>%
+  gt() #<<
+```
+
+
+```{r topyear-name2}
+topyears %>% 
+  filter(name == params$name2) %>%
+  knitr::kable(format = "html") #<<
+```
+
+]
+
+---
+
+<!-- plot name popularity over time -->
+
+.left-column[
+# Chart
+]
+
+.right-column[
+
+```{r, highlight.output = c(1, 2), fig.retina = 3}
+ggplot(namedata, 
+  aes(x = year, 
+      y = prop,  
+      group = name, 
+      color = name)) + 
+  geom_line() 
+```
+
+]
+
+---
+
+<!-- where are you from? -->
+
+.left-column[
+# Map
+]
+
+.right-column[
+
+```{r}
+# erase this chunk option if you want to include a map
+library(leaflet)
+leaflet() %>% addTiles() %>% setView(lat = -36.845983893565595, lng = 174.76659381353878, zoom = 17)
+```
+
+]
+
+---
+
+<!-- plot name popularity over time -->
+
+# Chart and code
+
+.pull-left[
+
+```{r plot-last, fig.show = 'hide'}
+ggplot(namedata, 
+  aes(x = year, 
+      y = prop,  
+      group = name, 
+      color = name)) + 
+  geom_line() 
+```
+
+]
+
+.pull-right[
+
+```{r ref.label = 'plot-last', echo = FALSE}
+
+```
+]
+
+---
+
+<!-- plot name popularity over time -->
+
+# Chart and code reverse order
+
+.pull-left[
+
+```{r plot-first, echo = FALSE}
+ggplot(namedata, 
+  aes(x = year, 
+      y = prop,  
+      group = name, 
+      color = name)) + 
+  geom_line() 
+```
+
+]
+
+.pull-right[
+
+```{r ref.label = 'plot-first', eval = FALSE}
+
+```
+]
+
+---
+
+background-image: url(http://bit.ly/arm-greens)
+class: center, middle, inverse
+
+## No background size
+
+Image size 6016x4016
+
+---
+
+background-image: url(http://bit.ly/arm-greens)
+background-size: cover
+class: center, middle, inverse
+
+## Cover
+
+Image size 6016x4016
+
+---
+
+background-image: url(http://bit.ly/arm-greens)
+background-size: contain
+class: center, middle, inverse
+
+## Contain
+
+Image size 6016x4016
+
+
