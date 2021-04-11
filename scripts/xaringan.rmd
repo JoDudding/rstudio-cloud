@@ -101,33 +101,6 @@ knitr::include_graphics("https://github.com/jodudding.png") # update USERNAME he
 I hope you're having a great day today.
 
 ---
-
-class: center, middle
-
-## Side by side
-
-.pull-left[
-![my hex](https://github.com/jodudding.png)
-]
-
-.pull-right[
-![my hex](https://github.com/jodudding.png)
-]
----
-
-
-class: center, middle
-
-## Side by side with narrower left
-
-.left-column[
-![my hex](https://github.com/jodudding.png)
-]
-
-.right-column[
-![my hex](https://github.com/jodudding.png)
-]
----
 <!-- we make the data here -->
 
 .left-column[
@@ -277,20 +250,45 @@ ggplot(namedata,
 
 ---
 
-background-image: url(http://bit.ly/arm-greens)
+<!-- plot name popularity over time -->
+
+# Chart with code in speaker notes
+
+```{r plot-speaker, echo = FALSE}
+ggplot(namedata, 
+  aes(x = year, 
+      y = prop,  
+      group = name, 
+      color = name)) + 
+  geom_line() 
+```
+
+???
+
+And here's the code that created the plot
+
+```{r ref.label = 'plot-speaker', eval = FALSE}
+
+```
+
+
+---
+
+background-image: url(img/dots.png)
+background-size: cover
 class: center, middle, inverse
 
-## No background size
+## Cover
 
 Image size 6016x4016
 
 ---
 
-background-image: url(http://bit.ly/arm-greens)
-background-size: cover
+background-image: url(img/dots.png)
+background-size: contain
 class: center, middle, inverse
 
-## Cover
+## Contain
 
 Image size 6016x4016
 

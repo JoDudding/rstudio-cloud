@@ -371,5 +371,22 @@ save_banner <- function(
   )  
 }  
 
+save_background <- function(
+  chart_name, device = "png", units = "in", width = 40, height = 26.73778,
+  dpi = 150, retina = 3, ...
+) {
+  ggsave(paste0(
+    "img/",
+    chart_name,
+    ".png"
+  ),
+  device = device,
+  units = units,
+  width = width,
+  height = height,
+  dpi = dpi
+  )
+}
+
 
 #-------------------------------------------------------------------------------

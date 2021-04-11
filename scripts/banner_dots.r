@@ -71,4 +71,31 @@ ggplot(tmp, aes(x, y)) +
 
 save_banner()
 
+#-------------------------------------------------------------------------------
+#' without text and border
+#-------------------------------------------------------------------------------
+
+ggplot(tmp, aes(x, y)) +
+  annotate('rect', xmin = -50, xmax = 50, ymin = -50, ymax = 50, 
+           fill = grey) +
+  geom_point(aes(colour = col, fill = col), alpha = 0.5, size = 30) +
+  geom_point(aes(colour = col, fill = col), size = 25) +
+  #annotate('text', x = 0.5, y = 1, label = project_title,
+  #         colour = lightest, size = 6, fontface = 'bold', hjust = 'left') +
+  #annotate('rect', xmin = 0.25, xmax = 34.75, ymin = 0.25, ymax = 1.75, 
+  #         colour = lightest, fill = NA, size = 1) +  
+  scale_fill_viridis_c(option = 'magma') +
+  scale_colour_viridis_c(option = 'magma') +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  guides(colour = 'none', fill = 'none') + 
+  coord_cartesian(xlim = c(0, 35), ylim = c(0, 2)) +
+  theme_void()
+
+#-------------------------------------------------------------------------------
+#' save background
+#-------------------------------------------------------------------------------
+
+save_background('dots')
+
 #------------------------------------------------------------------------------
