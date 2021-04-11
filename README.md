@@ -21,3 +21,10 @@ Learning and exploring R
 - nz hex plot
 - tidytuesday section
 - reference material section
+- sort out github token
+
+## Reference for WIP
+
+https://arm.rbind.io/slides/xaringan.html
+https://pkg.garrickadenbuie.com/xaringanthemer/index.html
+https://www.garrickadenbuie.com/
