@@ -1,11 +1,13 @@
+![](img/banner.png)
+
 # rstudio-cloud
 
-Creation of slides using `xaringan`.  
+Learning and exploring R
 
-Making slides in R Markdown
+## Structure
 
-![my hex](img/xaringan.png)
-
-Allison Hill
-
-Course slides - https://arm.rbind.io/slides/xaringan
+- `scripts` contains r and rmarkdown code
+- `data` contains any saved data
+- `outputs` contains outputs created by the code
+- `html` contains any html documents created by the code
+- `img` contains any images to be used in rmarkdown documents or readme
