@@ -27,6 +27,7 @@ library(skimr)
 # tables
 library(gt)
 library(kableExtra)
+library(DT)
 
 # ggplot extensions
 library(patchwork)
@@ -39,6 +40,7 @@ library(ggbeeswarm)
 library(ggExtra)
 library(ggalluvial)
 library(geofacet)
+#library(ggfx)
 
 # animation
 library(gganimate)
@@ -50,8 +52,10 @@ library(tidytext)
 
 # colours and fonts
 library(colorspace)
+library(gfonts)
 #library(ragg)
 library(thematic)
+library(emo)
 
 # slides
 library(xaringan)
@@ -60,6 +64,9 @@ library(xaringanExtra)
 
 # learning
 library(tidytuesdayR)
+
+# maps
+library(leaflet)
 
 #-------------------------------------------------------------------------------
 #' options

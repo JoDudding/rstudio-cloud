@@ -319,7 +319,7 @@ str_wrap_factor <- function(x, ...) {
 #-------------------------------------------------------------------------------
 
 save_chart <- function(
-  chart_name, device = "png", units = "cm", width = 19, height = 13.4,
+  chart_name, units = "cm", width = 19, height = 13.4,
   dpi = 150, retina = 3, ...
 ) {
   ggsave(paste0(
@@ -327,7 +327,7 @@ save_chart <- function(
     chart_name,
     ".png"
   ),
-  device = device,
+  type = "cairo",
   units = units,
   width = width,
   height = height,
@@ -336,7 +336,7 @@ save_chart <- function(
 }
 
 save_twitter <- function(
-  chart_name, device = "png", units = "in", width = 9.877, height = 5.556,
+  chart_name, units = "in", width = 9.877, height = 5.556,
   dpi = 72, retina = 3, ...
 ) {
   ggsave(paste0(
@@ -344,7 +344,7 @@ save_twitter <- function(
     chart_name,
     ".png"
   ),
-  device = device,
+  type = "cairo",
   units = units,
   width = width,
   height = height,
@@ -354,7 +354,7 @@ save_twitter <- function(
 
 
 save_banner <- function(
-  chart_name = 'banner', device = "png", units = "cm", width = 35, height = 2,
+  chart_name = 'banner', units = "cm", width = 35, height = 2,
   dpi = 150, retina = 3, ...
   
 ) {
@@ -363,7 +363,7 @@ save_banner <- function(
     chart_name,
     ".png"
   ),
-  device = device,
+  type = "cairo",
   units = units,
   width = width,
   height = height,
@@ -372,15 +372,15 @@ save_banner <- function(
 }  
 
 save_background <- function(
-  chart_name, device = "png", units = "in", width = 40, height = 26.73778,
-  dpi = 150, retina = 3, ...
+  chart_name, units = "in", width = 6000/300, height = 6000/300 * 9/16,
+  dpi = 300, ...
 ) {
   ggsave(paste0(
     "img/",
     chart_name,
     ".png"
   ),
-  device = device,
+  type = "cairo",
   units = units,
   width = width,
   height = height,

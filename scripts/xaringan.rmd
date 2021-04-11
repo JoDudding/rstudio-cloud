@@ -23,8 +23,14 @@ background-size: 5%
 
 ---
 
-```{r setup, include=FALSE}
+<!-- all the set up stuff -->
+
+```{r setup, include = FALSE, echo = FALSE}
 options(htmltools.dir.version = FALSE)
+
+knitr::opts_knit$set(
+  root.dir = ".."
+)
 
 knitr::opts_chunk$set(
   warning = FALSE, 
@@ -32,14 +38,17 @@ knitr::opts_chunk$set(
   fig.retina = 3
 )
 
-library(tidyverse) # load tidyverse package
-library(babynames) # load babynames package
-library(gt)
-library(leaflet)
+```
+
+```{r source-setup, include = FALSE}
+source('scripts/setup.r', echo = FALSE, local = knitr::knit_global())
+```
+
+```{r get-data, include = FALSE}
+library(babynames)
 ```
 
 ```{r xaringan-themer, include=FALSE}
-library(xaringanthemer)
 style_mono_light(
   base_color = "#5F187F", white_color = colorspace::lighten("#FCFDBF", 0.75),
   background_color = colorspace::lighten("#FCFDBF", 0.75),
@@ -49,9 +58,11 @@ style_mono_light(
   code_font_google   = google_font("Fira Mono")
 )
 
-
 theme_colors <- viridisLite::magma(8)[2:8]
 ```
+
+<!-- set up complete -->
+
 
 class: inverse, center, middle
 
@@ -61,11 +72,9 @@ class: inverse, center, middle
 knitr::include_graphics("https://github.com/jodudding.png") # update USERNAME here
 ```
 
-### Learning to create Xanargan slides
+### Learning to create Xaringan slides
 
 .large[Jo Dudding | 10 April 2018]
-
-.small[[Course notes](https://arm.rbind.io/slides/xaringan.html)]
 
 ---
 
@@ -274,17 +283,17 @@ And here's the code that created the plot
 
 ---
 
-background-image: url(img/dots.png)
+background-image: url("../img/dots.png")
 background-size: cover
 class: center, middle, inverse
 
 ## Cover
 
-Image size 6016x4016
+Issue - this isn't picking up the image saved in the img folder
 
 ---
 
-background-image: url(img/dots.png)
+background-image: url("img/dots.png")
 background-size: contain
 class: center, middle, inverse
 
@@ -298,8 +307,38 @@ background-image: url(http://bit.ly/arm-greens)
 background-size: contain
 class: center, middle, inverse
 
-## Contain
+## Contain - http
+
+Image size 6016x4016
+
+---
+
+background-image: url("img/arm-greens.jpg")
+background-size: contain
+class: center, middle, inverse
+
+## Contain - local
 
 Image size 6016x4016
 
 
+---
+
+class: center, middle, inverse
+
+.pull-right[
+
+# Reference material
+
+]
+
+---
+
+# Reference
+
+
+- [Big book of R](https://www.bigbookofr.com/)
+- [R for data science](https://r4ds.had.co.nz/)
+- [Searchable database of r articles and packages](
+  https://alastairrushworth.github.io/searchable/searchable.html)
+  
