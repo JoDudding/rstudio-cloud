@@ -13,6 +13,12 @@
 source('scripts/setup.r', echo = FALSE)
 
 #-------------------------------------------------------------------------------
+#' get my theme
+#-------------------------------------------------------------------------------
+
+source('scripts/my_theme.r', echo = FALSE)
+
+#-------------------------------------------------------------------------------
 #' hexagon data frame
 #-------------------------------------------------------------------------------
 
@@ -115,6 +121,43 @@ nz_region_hex <- nz_region %>%
   select(-id) %>% 
   ungroup()
 
+#-------------------------------------------------------------------------------
+#' hex map
+#-------------------------------------------------------------------------------
+
+xxx <- nz_region %>%
+  select(code) %>%
+  mutate(
+    value = runif(n()),
+    label = paste0(code, "\n", percent(value))
+  )
+
+
+nz_region_hex <- nz_region_hex %>%  
+  left_join(xxx, by = "code")
+
+ggplot(nz_region_hex, aes(x = x, y = y, label = label)) +
+  geom_polygon(aes(fill = value, group = code),
+               colour = "white", 
+               size = 0.5
+  ) +
+  geom_text(aes(x = mid_x, y = mid_y),
+            colour = "white"
+  ) +
+  scale_fill_viridis_c(labels = percent_format(accuracy = 1L)) +
+  coord_fixed() +
+  guides(colour = "none", x = 'none', y = 'none') +
+  labs(
+    fill = NULL,
+    title = "Example of a hex plot for New Zealand"
+  ) +
+  theme_jo_void() +
+  theme(
+    legend.position = c(0.95, 0.05),
+    legend.justification = c("right", "bottom")
+  )
+
+save_chart("nz_hex_map", height = 19, width = 16)
 
 
 #-------------------------------------------------------------------------------

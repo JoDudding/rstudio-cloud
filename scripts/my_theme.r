@@ -93,3 +93,53 @@ theme_jo <- function(
 theme_set(theme_jo())
 
 #-------------------------------------------------------------------------------
+#' void version of theme
+#-------------------------------------------------------------------------------
+
+theme_jo_void <- function(
+  add_colour = "#5F187FFF",
+  base_family = "Fira Sans",
+  base_size = 15,
+  ...
+) {
+  
+  theme_void(...) %+replace%
+    theme(
+      # default font
+      text = element_text(family = base_family, size = base_size),
+      # align title and caption to the plot not the panel
+      plot.title.position = 'plot',
+      plot.caption.position = 'plot',
+      # change the title and caption to markdown and move them futher from the plot
+      plot.title = element_markdown(
+        hjust = 0, 
+        margin = margin(c(0, 0, 10, 0)),
+        colour = add_colour
+      ),
+      plot.subtitle = element_markdown(
+        hjust = 0, 
+        margin = margin(c(0, 0, 15, 0))
+      ),
+      plot.caption = element_markdown(
+        hjust = 1, 
+        margin = margin(c(10, 0, 0, 0))
+      ),
+      # set axis stuff to blank
+      axis.title = element_blank(),
+      axis.text = element_blank(),
+      panel.border = element_blank(),
+      axis.line = element_blank(),
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_blank(),
+      strip.text = element_markdown(
+        hjust = 0, margin = margin(c(10, 0, 0, 0)), colour = add_colour
+      ),
+      # clear colour and fill for strip
+      strip.background = element_rect(colour = NA, fill = NA)
+    )
+}
+
+
+#-------------------------------------------------------------------------------

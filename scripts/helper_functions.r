@@ -388,5 +388,20 @@ save_background <- function(
   )
 }
 
+#-------------------------------------------------------------------------------
+#' date functions
+#-------------------------------------------------------------------------------
+
+eom_date <- function(d = today(), n = 0) {
+  ceiling_date(d, 'month') - months(n) - days(1)
+}
+
+year_diff <- function(d1, d2 = today()) {
+  interval(d1, d2) %/% years(1)
+}
+
+nz_tz <- function(d) {
+  with_tz(d, tzone = "Pacific/Auckland")
+}
 
 #-------------------------------------------------------------------------------
